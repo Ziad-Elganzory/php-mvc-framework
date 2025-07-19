@@ -35,7 +35,7 @@ A simple PHP web application demonstrating modern PHP development practices incl
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Ziad-Elganzory/php-native-practice.git
    cd php-composer
    ```
 

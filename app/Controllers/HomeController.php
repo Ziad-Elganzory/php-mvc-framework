@@ -16,17 +16,19 @@ class HomeController
         ]);
     }
 
+    public function download()
+    {
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename="myfile.pdf"');
+        readfile(STORAGE_PATH . '/myfile.pdf');
+    }
+
     public function upload()
     {
-        echo '<pre>';
-        print_r($_FILES['receipt']);
-        echo '</pre>';
-
         $filePath = STORAGE_PATH . '/' . $_FILES['receipt']['name'];
         move_uploaded_file($_FILES['receipt']['tmp_name'],$filePath);
 
-        echo '<pre>';
-        print_r(pathinfo($filePath));
-        echo '</pre>';
+        header('Location: /');
+        exit;
     }
 }

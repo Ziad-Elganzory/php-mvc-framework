@@ -6,7 +6,12 @@ use App\Controllers\InvoiceController;
 use App\Exceptions\RouteNotFoundException;
 use App\Router;
 use App\View;
+use Dotenv\Dotenv;
+
 require_once __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->load();
 
 define('STORAGE_PATH', __DIR__ . '/../storage');
 define('VIEWS_PATH', __DIR__ . '/../views');

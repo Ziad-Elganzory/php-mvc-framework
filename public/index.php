@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+use App\App;
+use App\Config;
 use App\Controllers\HomeController;
 use App\Controllers\InvoiceController;
 use App\Exceptions\RouteNotFoundException;
@@ -16,12 +18,9 @@ $dotenv->load();
 define('STORAGE_PATH', __DIR__ . '/../storage');
 define('VIEWS_PATH', __DIR__ . '/../views');
 
+$router = new Router();
 
-
-try {
-    $router = new Router();
-
-    $router
+$router
     ->get('/',[HomeController::class, 'index'])
     ->get('/download',[HomeController::class,'download'])
     ->post('/upload',[HomeController::class,'upload'])
@@ -29,12 +28,11 @@ try {
     ->get('/invoices/create',[InvoiceController::class, 'create'])
     ->post('/invoices/create',[InvoiceController::class, 'store']);
 
-    echo $router->resolve(
-        $_SERVER['REQUEST_URI'],
-        strtolower($_SERVER['REQUEST_METHOD'])
-    );
-
-} catch (RouteNotFoundException $e){
-    http_response_code(404);
-    echo View::make('errors/404');
-}
+(new App(
+    $router,
+    [
+        'uri'=>$_SERVER['REQUEST_URI'],
+        'method'=>$_SERVER['REQUEST_METHOD']
+    ],
+    new Config($_ENV)
+))->run();

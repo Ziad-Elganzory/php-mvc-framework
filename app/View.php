@@ -25,6 +25,10 @@ class View
             throw new ViewNotFoundException();
         }
         
+        foreach ($this->params as $key => $value) {
+            $$key = $value;
+        }
+        
         ob_start();
         include __DIR__ . '/../views/templates/header.php';
         include $viewPath;

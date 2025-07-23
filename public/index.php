@@ -21,12 +21,7 @@ define('VIEWS_PATH', __DIR__ . '/../views');
 $router = new Router();
 
 $router
-    ->get('/',[HomeController::class, 'index'])
-    ->get('/download',[HomeController::class,'download'])
-    ->post('/upload',[HomeController::class,'upload'])
-    ->get('/invoices',[InvoiceController::class, 'index'])
-    ->get('/invoices/create',[InvoiceController::class, 'create'])
-    ->post('/invoices/create',[InvoiceController::class, 'store']);
+    ->get('/',[HomeController::class, 'index']);
 
 (new App(
     $router,
